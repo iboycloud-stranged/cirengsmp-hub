@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import logo from "@/assets/cirengsmp-logo.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { PlatformBadges } from "./Header";
+import { PlayerAvatar } from "./PlayerAvatar";
 import { JOIN_URL, SERVER_ADDRESS, WHATSAPP_URL, fetchServerStatus } from "@/lib/server";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +16,7 @@ const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   size: 4 + (i % 3) * 2,
 }));
 
-function StatusPill() {
+function StatusBlock() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["server-status"],
     queryFn: fetchServerStatus,
@@ -32,28 +33,54 @@ function StatusPill() {
         ? `Online • ${data.players.online}/${data.players.max} Players`
         : "Offline";
 
+  const list = data?.players.list ?? [];
+
   return (
-    <div
-      className={cn(
-        "inline-flex items-center gap-2.5 rounded-full border px-4 py-2 text-sm font-semibold",
-        online
-          ? "border-emerald/40 bg-emerald/10 text-emerald"
-          : "border-border bg-secondary text-muted-foreground",
-      )}
-    >
-      <span className="relative flex size-2.5">
-        {online && (
-          <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald opacity-75" />
+    <div className="flex w-full flex-col items-center gap-3">
+      <div
+        className={cn(
+          "inline-flex items-center gap-2.5 rounded-full border px-4 py-2 text-sm font-semibold",
+          online
+            ? "border-emerald/40 bg-emerald/10 text-emerald"
+            : "border-border bg-secondary text-muted-foreground",
         )}
-        <span
-          className={cn(
-            "relative inline-flex size-2.5 rounded-full",
-            online ? "bg-emerald" : "bg-muted-foreground",
+      >
+        <span className="relative flex size-2.5">
+          {online && (
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald opacity-75" />
           )}
-        />
-      </span>
-      <Users className="size-4" />
-      {label}
+          <span
+            className={cn(
+              "relative inline-flex size-2.5 rounded-full",
+              online ? "bg-emerald" : "bg-muted-foreground",
+            )}
+          />
+        </span>
+        <Users className="size-4" />
+        {label}
+      </div>
+
+      {online && (
+        <div className="card-glass w-full max-w-xl rounded-2xl px-3 py-2.5">
+          {list.length > 0 ? (
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {list.map((name) => (
+                <span
+                  key={name}
+                  className="inline-flex shrink-0 items-center gap-2 rounded-full border border-border bg-background/60 px-2.5 py-1 text-xs font-semibold"
+                >
+                  <PlayerAvatar name={name} size={20} />
+                  {name}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-xs text-muted-foreground">
+              Belum ada warga yang masuk
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }

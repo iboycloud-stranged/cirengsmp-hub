@@ -28,7 +28,7 @@ export function Support() {
         </div>
         <Button variant="ember" size="xl" className="mt-5 w-full" asChild>
           <a href={SOCIABUZZ_URL} target="_blank" rel="noopener noreferrer">
-            <Heart className="size-5!" /> Donasi via SociaBuzz
+            <Heart className="size-5!" /> Donasi / Sawer via SociaBuzz
           </a>
         </Button>
       </div>
