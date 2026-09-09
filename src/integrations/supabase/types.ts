@@ -38,6 +38,39 @@ export type Database = {
         }
         Relationships: []
       }
+      leaderboards: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          id: string
+          is_active_toggle: boolean
+          player_name: string
+          rank: number
+          updated_at: string
+        }
+        Insert: {
+          amount?: number
+          category: string
+          created_at?: string
+          id?: string
+          is_active_toggle?: boolean
+          player_name: string
+          rank?: number
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          id?: string
+          is_active_toggle?: boolean
+          player_name?: string
+          rank?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       redeem_codes: {
         Row: {
           code: string
@@ -59,6 +92,24 @@ export type Database = {
           expires_at?: string
           id?: string
           reward?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: boolean
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: boolean
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: boolean
         }
         Relationships: []
       }
