@@ -52,3 +52,45 @@ export function formatDate(iso: string) {
     year: "numeric",
   });
 }
+
+export type LeaderboardEntry = {
+  id: string;
+  category: "top_money" | "top_donation";
+  player_name: string;
+  amount: number;
+  rank: number;
+  is_active_toggle: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export const leaderboardQuery = () =>
+  queryOptions({
+    queryKey: ["leaderboards"],
+    queryFn: async (): Promise<LeaderboardEntry[]> => {
+      const { data, error } = await supabase
+        .from("leaderboards")
+        .select("*")
+        .order("rank", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as LeaderboardEntry[];
+    },
+  });
+
+export const leaderboardEnabledQuery = () =>
+  queryOptions({
+    queryKey: ["site_settings", "leaderboard_enabled"],
+    queryFn: async (): Promise<boolean> => {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "leaderboard_enabled")
+        .maybeSingle();
+      if (error) throw error;
+      return Boolean(data?.value);
+    },
+  });
+
+export function formatAmount(n: number) {
+  return new Intl.NumberFormat("id-ID").format(n);
+}
