@@ -140,7 +140,7 @@ export function Hero() {
         </p>
 
         <div className="mt-6">
-          <StatusPill />
+          <StatusBlock />
         </div>
 
         <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
