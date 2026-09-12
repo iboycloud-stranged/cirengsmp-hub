@@ -4,6 +4,7 @@ import { Hero } from "@/components/site/Hero";
 import { Announcements } from "@/components/site/Announcements";
 import { RedeemCodes } from "@/components/site/RedeemCodes";
 import { InfoSection } from "@/components/site/InfoSection";
+import { Leaderboard } from "@/components/site/Leaderboard";
 import { DonationAlertOverlay, Support } from "@/components/site/Support";
 import { Footer } from "@/components/site/Footer";
 
@@ -31,6 +32,7 @@ function Index() {
         <Hero />
         <Announcements />
         <RedeemCodes />
+        <Leaderboard />
         <Support />
         <InfoSection />
       </main>
