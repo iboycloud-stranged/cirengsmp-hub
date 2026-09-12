@@ -178,7 +178,10 @@ function RedeemTab() {
         className="card-glass grid gap-4 rounded-2xl p-5 sm:grid-cols-[1fr_1fr_auto] sm:items-end"
         onSubmit={(e) => {
           e.preventDefault();
-          if (!code.trim() || !reward.trim()) return toast.error("Lengkapi kode dan hadiah");
+          if (!code.trim() || !reward.trim()) {
+            toast.error("Lengkapi kode dan hadiah");
+            return;
+          }
           add.mutate();
         }}
       >
@@ -264,7 +267,10 @@ function NewsTab() {
         className="card-glass space-y-4 rounded-2xl p-5"
         onSubmit={(e) => {
           e.preventDefault();
-          if (!title.trim() || !content.trim()) return toast.error("Judul dan isi wajib diisi");
+          if (!title.trim() || !content.trim()) {
+            toast.error("Judul dan isi wajib diisi");
+            return;
+          }
           add.mutate();
         }}
       >
@@ -415,7 +421,10 @@ function BoardTab() {
         className="card-glass grid gap-4 rounded-2xl p-5 sm:grid-cols-[1fr_1fr_100px_auto] sm:items-end"
         onSubmit={(e) => {
           e.preventDefault();
-          if (!name.trim()) return toast.error("Isi nickname pemain");
+          if (!name.trim()) {
+            toast.error("Isi nickname pemain");
+            return;
+          }
           save.mutate();
         }}
       >
